@@ -86,7 +86,7 @@ print()
 
 print("lesson 3 - task 09")
 # Создайте словарь с ключами “x”, “y” и “z” и присвойте им значения 10, 20 и 30 соответственно.
-axes = {}
+axes = dict()
 axes['x'] = 10
 axes['y'] = 20
 axes['z'] = 30
@@ -117,9 +117,9 @@ print("lesson 3 - task 12")
 # Вложите этот словарь в другой словарь с ключом “person”.
 # Выведите на экран значение ключа “age” из вложенного словаря.
 person_ = {'name': 'Ali', 'age': 22}
-new_dic['person'] = person_
+person['person'] = person_
 # print(new_dic)
-print(new_dic['person']['age'])
+print(person['person']['age'])
 print()
 
 

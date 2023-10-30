@@ -9,18 +9,28 @@ cites_original = json.loads(cites)
 # Необходимо сформировать geojson файл с координатами городов для одной страны.
 
 # Создание списка стран
-countries = []
-for text in cites_original:
-    if text['country'] not in countries:
-        countries.append(text['country'])
-countries.sort()
+# countries = []
+# for text in cites_original:
+#     if text['country'] not in countries:
+#         countries.append(text['country'])
+# countries.sort()
+#
+# print(countries)
+# print()
+#
+# cities_in_country = dict()
+# for country in countries:
+#     cities_in_country[country] = [text['name'] for text in cites_original if text['country'] == country]
+#
+# print(cities_in_country)
 
-print(countries)
-print()
-
+# Улучшенный алгоритм
 cities_in_country = dict()
-for country in countries:
-    cities_in_country[country] = [text['name'] for text in cites_original if text['country'] == country]
+for text in cites_original:
+    if text['country'] not in cities_in_country:
+        cities_in_country[text['country']] = [text['name']]
+    else:
+        cities_in_country[text['country']].append(text['name'])
 
 # print(cities_in_country)
 
@@ -31,12 +41,14 @@ for country in countries:
 # with open("test.json", "w", encoding="utf-8") as json_file:
 #    json_file.write(json_country)
 
-for country in countries:
-    file_name = 'geo_' + country
-    with open(file_name, "w", encoding="utf-8") as file:
-        for i in range(len(cities_in_country[country])):
-            file.write(cities_in_country[country][i] + '\n')
-    print(file_name)
+# for country in countries:
+#     file_name = 'geo_' + country
+#     with open(file_name, "w", encoding="utf-8") as file:
+#         for i in range(len(cities_in_country[country])):
+#             file.write(cities_in_country[country][i] + '\n')
+#   print(file_name)
+
+
 
 
 print()

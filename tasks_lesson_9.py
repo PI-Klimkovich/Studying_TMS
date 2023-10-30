@@ -62,6 +62,32 @@ print(count_cities_in_country)
 # print(sum(cities_in_country))
 print()
 
+# Иной подход - проход по городам.
+count_cities_in_country = dict()
+for text in cites_original:
+    if text['country'] not in count_cities_in_country:
+        count_cities_in_country[text['country']] = 1
+    else:
+        count_cities_in_country[text['country']] += 1
+
+print("Словарь количества городов в стране")
+print(count_cities_in_country)
+print()
+
+# без 'пустых' объектов
+count_cities_in_country = dict()
+for text in cites_original:
+    if text['country'] != '' and text['name'] != '':
+        if text['country'] not in count_cities_in_country:
+            count_cities_in_country[text['country']] = 1
+        else:
+            count_cities_in_country[text['country']] += 1
+
+print("Словарь количества городов в стране без 'пустых' городов и стран")
+print(count_cities_in_country)
+print()
+
+
 # Подсчитать количество городов в северном полушарии и в южном.
 
 # Анализ файла показал, что под "name" записаны не только города!!

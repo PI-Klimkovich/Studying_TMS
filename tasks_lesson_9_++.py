@@ -34,6 +34,12 @@ for text in cites_original:
 
 # print(cities_in_country)
 
+# Разбиение по файлам с учетом "длины" страны.
+
+for key in cities_in_country:
+    a = len(cities_in_country[key])
+    print(a)
+
 # Сериализация в JSON
 # json_country: str = json.dumps(country, ensure_ascii=False)
 # print(type(json_country))
@@ -48,13 +54,9 @@ for text in cites_original:
 #             file.write(cities_in_country[country][i] + '\n')
 #   print(file_name)
 
-
-
-
 print()
 
 features = []
-
 
 geojson = {
     "type": "FeatureCollection",  # Обязательный параметр

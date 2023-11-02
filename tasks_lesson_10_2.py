@@ -2,6 +2,16 @@
 import math
 
 
+class Point:
+
+    def __init__(self, x: int | float, y: int | float):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return f'point coordinates ({self.x}, {self.y})'
+
+
 class Circle:
 
     def __init__(self, radius: int | float):
@@ -10,9 +20,9 @@ class Circle:
     def area(self) -> int | float:
         return math.pi * self.radius**2
 
-    def __sub__(self, second):
-        radius = abs(self.radius - second.radius)
-        return Circle(radius) if radius else 'point'
+    def __sub__(self, other):
+        radius = abs(self.radius - other.radius)
+        return Circle(radius) if radius else Point(0, 0)
 
     def __str__(self):
         return f'radius of circle {self.radius}'

@@ -23,7 +23,8 @@ class Auto:
     def birthday(self) -> int:
         return self.age + 1
 
-    def stop(self) -> None:
+    @staticmethod
+    def stop() -> None:
         print('stop')
 
 
@@ -36,7 +37,8 @@ class Truck(Auto):
         print("attention")
         super().move()
 
-    def load(self) -> None:
+    @staticmethod
+    def load() -> None:
         sleep(1)
         print('load')
         sleep(1)

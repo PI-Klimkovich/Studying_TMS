@@ -25,14 +25,28 @@ cites_original = json.loads(cites)
 # print(cities_in_country)
 
 # Улучшенный алгоритм
+# cities_in_country = dict()
+# for text in cites_original:
+#     if text['country'] not in cities_in_country:
+#         cities_in_country[text['country']] = [text['name']]
+#     else:
+#         cities_in_country[text['country']].append(text['name'])
+#
+# print(cities_in_country)
+
+
+# попытка выловить словари -------- удалась ))
 cities_in_country = dict()
 for text in cites_original:
     if text['country'] not in cities_in_country:
-        cities_in_country[text['country']] = [text['name']]
+        cities_in_country[text['country']] = [text]
     else:
-        cities_in_country[text['country']].append(text['name'])
+        cities_in_country[text['country']].append(text)
 
-# print(cities_in_country)
+# print(cities_in_country['SJ'])
+# print()
+# print(cities_in_country['IM'])
+# print()
 
 # Сериализация в JSON
 # json_country: str = json.dumps(country, ensure_ascii=False)
@@ -48,31 +62,72 @@ for text in cites_original:
 #             file.write(cities_in_country[country][i] + '\n')
 #   print(file_name)
 
-
-
-
 print()
 
+# for country in cities_in_country:
 features = []
-
+# 'SJ' 'IM'
+country = 'SJ'
+for city in cities_in_country[country]:
+    features.append(
+        {
+            "type": "Feature",
+            "id": city['id'],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [city['coord']['lon'], city['coord']['lat']],
+            },
+            "properties": {
+                "iconCaption": city["name"],
+                "marker-color": "#b51eff",
+            },
+        }
+    )
 
 geojson = {
     "type": "FeatureCollection",  # Обязательный параметр
-    "features": [  # Список данных для отображения на карте
-        {
-            "type": "Feature",  # Обязательный параметр
-            "id": "cityID",  # Идентификатор берем из данных города
-            "geometry": {
-                "type": "Point",  # Обязательно Point, город будет меткой
-                "coordinates": [-65.23, 123.11],
-            },
-            "properties": {
-                "iconCaption": "name",      # Название города
-                "marker-color": "#b51eff",  # Цвет метки
-            },
-        },
-        ...  # Другие элементы коллекции
-    ]
+    "features": features
 }
 
-print(geojson)
+# print(geojson)
+
+# Сериализация в JSON
+json_geojson: str = json.dumps(geojson, ensure_ascii=False)
+file_name = 'geo_' + country
+with open(file_name, "w", encoding="utf-8") as json_file:
+    json_file.write(json_geojson)
+
+
+# Рабочий вариант с одной страной
+# features = []
+# # 'SJ' 'IM'
+# country = 'SJ'
+# for city in cities_in_country[country]:
+#     features.append(
+#         {
+#             "type": "Feature",
+#             "id": city['id'],
+#             "geometry": {
+#                 "type": "Point",
+#                 "coordinates": [city['coord']['lon'], city['coord']['lat']],
+#             },
+#             "properties": {
+#                 "iconCaption": city["name"],
+#                 "marker-color": "#b51eff",
+#             },
+#         }
+#     )
+#
+# geojson = {
+#     "type": "FeatureCollection",  # Обязательный параметр
+#     "features": features
+# }
+#
+# # print(geojson)
+#
+# # Сериализация в JSON
+# json_geojson: str = json.dumps(geojson, ensure_ascii=False)
+# file_name = 'geo_' + country
+# with open(file_name, "w", encoding="utf-8") as json_file:
+#     json_file.write(json_geojson)
+

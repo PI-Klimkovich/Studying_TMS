@@ -64,38 +64,36 @@ for text in cites_original:
 
 print()
 
-# for country in cities_in_country:
-features = []
-# 'SJ' 'IM'
-country = 'SJ'
-for city in cities_in_country[country]:
-    features.append(
-        {
-            "type": "Feature",
-            "id": city['id'],
-            "geometry": {
-                "type": "Point",
-                "coordinates": [city['coord']['lon'], city['coord']['lat']],
-            },
-            "properties": {
-                "iconCaption": city["name"],
-                "marker-color": "#b51eff",
-            },
-        }
-    )
+for country in cities_in_country:
+    features = []
+    for city in cities_in_country[country]:
+        features.append(
+            {
+                "type": "Feature",
+                "id": city['id'],
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [city['coord']['lon'], city['coord']['lat']],
+                },
+                "properties": {
+                    "iconCaption": city["name"],
+                    "marker-color": "#b51eff",
+                },
+            }
+        )
 
-geojson = {
-    "type": "FeatureCollection",  # Обязательный параметр
-    "features": features
-}
+    geojson = {
+        "type": "FeatureCollection",  # Обязательный параметр
+        "features": features
+    }
 
-# print(geojson)
+    # print(geojson)
 
-# Сериализация в JSON
-json_geojson: str = json.dumps(geojson, ensure_ascii=False)
-file_name = 'geo_' + country
-with open(file_name, "w", encoding="utf-8") as json_file:
-    json_file.write(json_geojson)
+    # Сериализация в JSON
+    json_geojson: str = json.dumps(geojson, ensure_ascii=False)
+    file_name = 'geo_' + country
+    with open(file_name, "w", encoding="utf-8") as json_file:
+        json_file.write(json_geojson)
 
 
 # Рабочий вариант с одной страной

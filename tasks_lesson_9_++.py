@@ -35,7 +35,7 @@ cites_original = json.loads(cites)
 # print(cities_in_country)
 
 
-# попытка выловить словари -------- удалась ))
+# формирование словаре стран с городами
 cities_in_country = dict()
 for text in cites_original:
     if text['country'] not in cities_in_country:
@@ -64,68 +64,70 @@ for text in cites_original:
 
 print()
 
-for country in cities_in_country:
-    features = []
-    for city in cities_in_country[country]:
-        features.append(
-            {
-                "type": "Feature",
-                "id": city['id'],
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [city['coord']['lon'], city['coord']['lat']],
-                },
-                "properties": {
-                    "iconCaption": city["name"],
-                    "marker-color": "#b51eff",
-                },
-            }
-        )
-
-    geojson = {
-        "type": "FeatureCollection",  # Обязательный параметр
-        "features": features
-    }
-
-    # print(geojson)
-
-    # Сериализация в JSON
-    json_geojson: str = json.dumps(geojson, ensure_ascii=False)
-    file_name = 'geo_' + country
-    with open(file_name, "w", encoding="utf-8") as json_file:
-        json_file.write(json_geojson)
+# for country in cities_in_country:
+#     features = []
+#     for city in cities_in_country[country]:
+#         features.append(
+#             {
+#                 "type": "Feature",
+#                 "id": city['id'],
+#                 "geometry": {
+#                     "type": "Point",
+#                     "coordinates": [city['coord']['lon'], city['coord']['lat']],
+#                 },
+#                 "properties": {
+#                     "iconCaption": city["name"],
+#                     "marker-color": "#b51eff",
+#                 },
+#             }
+#         )
+#
+#     geojson = {
+#         "type": "FeatureCollection",  # Обязательный параметр
+#         "features": features
+#     }
+#
+#     # Сериализация в JSON
+#     json_geojson: str = json.dumps(geojson, ensure_ascii=False)
+#     file_name = 'geo_' + country
+#     with open(file_name, "w", encoding="utf-8") as json_file:
+#         json_file.write(json_geojson)
 
 
 # Рабочий вариант с одной страной
-# features = []
-# # 'SJ' 'IM'
-# country = 'SJ'
-# for city in cities_in_country[country]:
-#     features.append(
-#         {
-#             "type": "Feature",
-#             "id": city['id'],
-#             "geometry": {
-#                 "type": "Point",
-#                 "coordinates": [city['coord']['lon'], city['coord']['lat']],
-#             },
-#             "properties": {
-#                 "iconCaption": city["name"],
-#                 "marker-color": "#b51eff",
-#             },
-#         }
-#     )
-#
-# geojson = {
-#     "type": "FeatureCollection",  # Обязательный параметр
-#     "features": features
-# }
-#
-# # print(geojson)
-#
-# # Сериализация в JSON
-# json_geojson: str = json.dumps(geojson, ensure_ascii=False)
-# file_name = 'geo_' + country
-# with open(file_name, "w", encoding="utf-8") as json_file:
-#     json_file.write(json_geojson)
 
+# 'SJ' 'IM' 'RU'
+features = []
+country = 'IM'
+for city in cities_in_country[country]:
+    i = 1
+    features.append(
+        {
+            "type": "Feature",
+            "id": city['id'],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [city['coord']['lon'], city['coord']['lat']],
+            },
+            "properties": {
+                "iconCaption": city["name"],
+                "marker-color": "#b51eff",
+            },
+        }
+    )
+
+# print(len(cities_in_country[country]), len(cities_in_country[country]) // 100 + 1)
+for i in range(len(cities_in_country[country]) // 100 + 1):
+    geojson = {
+        "type": "FeatureCollection",  # Обязательный параметр
+        "features": features[100 * i:100*(i+1)]
+    }
+
+    # Сериализация в JSON
+    json_geojson: str = json.dumps(geojson, ensure_ascii=False)
+    if len(cities_in_country[country]) // 100 + 1 == 1:
+        file_name = 'geo_' + country
+    else:
+        file_name = 'geo_' + country + '_' + '0' * (2 - len(str(i+1))) + str(i+1)
+    with open(file_name, "w", encoding="utf-8") as json_file:
+        json_file.write(json_geojson)

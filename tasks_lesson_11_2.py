@@ -69,3 +69,58 @@ print(figura_1.is_square)
 print(figura_4.is_square)
 print('----------------')
 print()
+
+
+# Класс Person (для обработки персоналии)
+class Person:
+    def __init__(self, name: str, age: int | float, gender: str):
+        self.name = name
+        self.age = age
+        self.gender = gender
+
+    def __str__(self):
+        return f'Имя: {self.name}, Возраст: {self.age}, Пол: {self.gender}'
+
+    def get_name(self):
+        return self.name
+
+    @property
+    def set_name(self, new_name: str):
+        self.name = new_name
+
+    @staticmethod
+    def is_adult(self):
+        return self.age >= 18
+
+    @classmethod
+    def create_from_string(cls, s: str):
+        name, age, gender = s.split('-')
+        return cls(name, age, gender)
+
+
+person_1 = Person("Bob", 8, 'm')
+person_2 = Person('Alina', 16, 'f')
+person_3 = Person('Pol', 34, 'm')
+person_4 = Person('Nadin', 42, 'f')
+person_cls_1 = "Oleg-29-m"
+person_cls_2 = "Olga-22-f"
+
+print(person_4)
+print(person_3.get_name())
+person_4.name = 'Elis'
+print(person_4)
+print(Person.is_adult(person_2))
+print(Person.is_adult(person_4))
+print(Person.is_adult(person_1))
+print(person_1)
+print(person_4)
+print(person_1.get_name())
+person_1.name = 'Serge'
+print(person_1)
+person_1.name = 'Serёga'
+print(person_1)
+print(person_1.get_name())
+print(Person.create_from_string(person_cls_1))
+print(Person.create_from_string(person_cls_2))
+print('----------------')
+print()

@@ -30,16 +30,19 @@ class Matrix:
         return Matrix(array)
 
     @classmethod
-    def identity_matrix(cls):
-        pass
+    def identity_matrix(cls, m: int, n: int):
+        array = [[1 for _ in range(n)] for _ in range(m)]
+        return cls(array)
 
     @classmethod
-    def zero_matrix(cls):
-        pass
+    def zero_matrix(cls, m: int, n: int):
+        array = [[0 for _ in range(n)] for _ in range(m)]
+        return cls(array)
 
     @classmethod
-    def diagonal_matrix(cls):
-        pass
+    def diagonal_matrix(cls, array_in: list):
+        array = [[array_in[i][j] if i == j else 0 for j in range(len(array_in[0]))] for i in range(len(array_in))]
+        return cls(array)
 
     def dimension_matrix(self):
         return len(self.array), len(self.array[0])
@@ -79,6 +82,8 @@ array_2 = [[-1, 3, 4], [0, 1, 6], [-2, 2, 8]]
 array_3 = [[-1, 3, 4], [0, 1, 6], [-2, 2, 8]]
 array_4 = [[-1, 3, 4, 5], [0, 1, 6, -6], [-2, 2, 8, -7], [0, 1, 2, 3]]
 array_5 = [[1, 3, -2], [9, 4, 2], [2, -4, -2]]
+array_6 = array_5
+array_7 = array_4
 
 array_1 = Matrix(array_1)
 array_2 = Matrix(array_2)
@@ -123,6 +128,16 @@ print(array_5.sum_of_elements())
 print(array_1 == array_3)
 print(array_2 == array_3)
 print(array_5 == array_3)
+
+print(Matrix.identity_matrix(2, 3))
+print(Matrix.identity_matrix(5, 3))
+
+print(Matrix.zero_matrix(2, 3))
+print(Matrix.zero_matrix(5, 3))
+print(Matrix.zero_matrix(4, 4))
+
+print(Matrix.diagonal_matrix(array_6))
+print(Matrix.diagonal_matrix(array_7))
 
 print('----------------')
 print()

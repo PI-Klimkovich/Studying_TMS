@@ -3,21 +3,12 @@ class RealString:
     def __init__(self, text: str):
         self.text = text
 
-#    def __eq__(self, other: str):
-#        if isinstance(other, RealString):
-#            return len(self.text) == len(other.text)
-#        else:
-#            return len(self.text) == len(str(other))
-
     def __eq__(self, other):
         if isinstance(other, RealString):
             res = len(self.text) == len(other.text)
         else:
             res = len(self.text) == len(str(other))
-        if res is True:
-            return "Длинна строк одинакова"
-        else:
-            return "Длинна строк различна"
+        return res
 
     def __gt__(self, other):
         if isinstance(other, RealString):

@@ -12,5 +12,5 @@ class AbstractShop(ABC):
         """ Продажа товара """
 
     @abstractmethod
-    def all_products(self: Product):
+    def all_products(self):
         """ Перечень всех товаров """

@@ -10,17 +10,16 @@ class RealShop(AbstractShop):
         """ Добавление нового товара"""
         return self._products.append(data)
 
-    def sell_product(self, data):
+    def sell_product(self, data: Product):
         """ Продажа товара """
         for product in self._products:
-            if product.id == data:
-                print(product)
+            if product == data:
                 self._products.remove(product)
                 return self._products
 
     def all_products(self):
         """ Перечень всех товаров """
-        print(self._products)
+        return self._products
 
 
 products = RealShop()
@@ -32,20 +31,20 @@ p_004 = Coffee(8845, 'кофе', 2.06, 0.05, 'без сахара', 'араби�
 p_01 = Coffee(8846, 'кофе', 2.25, 0.05, 'без сахара', 'робуста')
 p_02 = Pizza(6608, 'пицца', 18.66, ['сыр', 'ветчина', 'грибы', 'сладкий перец'], 'не острая', 15)
 
-RealShop.all_products(products)
+print(RealShop.all_products(products))
 RealShop.add_product(products, p_001)
 RealShop.add_product(products, p_002)
 RealShop.add_product(products, p_003)
 RealShop.add_product(products, p_004)
-RealShop.all_products(products)
+print(RealShop.all_products(products))
 RealShop.add_product(products, p_01)
-RealShop.all_products(products)
+print(RealShop.all_products(products))
 RealShop.add_product(products, p_02)
-RealShop.all_products(products)
+print(RealShop.all_products(products))
 print()
-data_id = 6502
+data_id = p_002
 RealShop.sell_product(products, data_id)
-RealShop.all_products(products)
-data_id = 8846
+print(RealShop.all_products(products))
+data_id = p_01
 RealShop.sell_product(products, data_id)
-RealShop.all_products(products)
+print(RealShop.all_products(products))

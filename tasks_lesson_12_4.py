@@ -16,17 +16,17 @@ class RealShop(AbstractShop):
         if not (isinstance(product, Product)):
             raise NonProductError(f'"{product}" - не является продуктом')
 
-    def add_product(self, data: Product):
+    def add_product(self, product: Product):
         """ Добавление нового товара"""
-        self.is_valid(data)
-        return self._products.append(data)
+        self.is_valid(product)
+        return self._products.append(product)
 
-    def sell_product(self, data: Product):
+    def sell_product(self, product: Product):
         """ Продажа товара """
-        for product in self._products:
-            self.is_valid(data)
-            if product == data:
-                self._products.remove(product)
+        self.is_valid(product)
+        for product_in in self._products:
+            if product_in == product:
+                self._products.remove(product_in)
                 return self._products
 
     def all_products(self):

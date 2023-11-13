@@ -6,15 +6,15 @@ class RealShop(AbstractShop):
     def __init__(self):
         self._products = []
 
-    def add_product(self, data: Product):
+    def add_product(self, product: Product):
         """ Добавление нового товара"""
-        return self._products.append(data)
+        return self._products.append(product)
 
-    def sell_product(self, data: Product):
+    def sell_product(self, product: Product):
         """ Продажа товара """
-        for product in self._products:
-            if product == data:
-                self._products.remove(product)
+        for product_in in self._products:
+            if product_in == product:
+                self._products.remove(product_in)
                 return self._products
 
     def all_products(self):

@@ -24,10 +24,8 @@ class RealShop(AbstractShop):
     def sell_product(self, product: Product):
         """ Продажа товара """
         self.is_valid(product)
-        for product_in in self._products:
-            if product_in == product:
-                self._products.remove(product_in)
-                return self._products
+        self._products.remove(product)
+        return self._products
 
     def all_products(self):
         """ Перечень всех товаров """
